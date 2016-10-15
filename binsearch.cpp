@@ -28,7 +28,7 @@ int binarySearch(int input_list[], int L, int R, int search_num ){
 
 int main() {
   int num_list[N] = { 3, 4, 6, 8, 9, 11, 34, 47, 99, 100 };
-
+  // TODO add user input
   int target_num = num_list[0];
   int target_num_index = 0;
 
