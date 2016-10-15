@@ -40,16 +40,16 @@ int main() {
 
   cout << " " << endl;
 
-  cout << "What element do you want to search?" << endl;
+  cout << "Which number do you want to search?" << endl;
   cin >> target_num;
 
   target_num_index = binarySearch(num_list, start_index, end_index, target_num);
 
   if (target_num_index >= 0) {
-    cout << "The element was found at index: " << target_num_index << endl;
+    cout << "The number was found at index: " << target_num_index << endl;
   }
   else{
-    cout << "The element was not found." << endl;
+    cout << "The number was not found." << endl;
   }
   return 0;
 }
