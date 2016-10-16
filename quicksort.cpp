@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <omp.h>
-#define N 10 // 10 million elements (not distinct), change it to test the time taken
+#define N 10000000 // Change this to test the time taken
 using namespace std;
 
 //int MAX_THREADS;
@@ -27,13 +27,13 @@ void quicksort(int *input_list, int low, int high) {
   int p = 0;
   if (low < high) {
     p = partition(input_list, low, high);
-    #pragma omp parallel sections
+    //#pragma omp parallel sections
     {
-      #pragma omp section
+      //#pragma omp section
       {
         quicksort(input_list, low, p - 1);
       }
-      #pragma omp section
+      //#pragma omp section
       {
         quicksort(input_list, p + 1, high);
       }
@@ -48,9 +48,9 @@ int main() {
   for (int i = 0; i < N; i++) {
     num_list[i] = rand()%N;
   }
-  omp_set_nested(true);
+  //omp_set_nested(true);
   //MAX_THREADS = omp_get_max_threads();
   quicksort(num_list, start_index, end_index);
-
+  delete num_list;
   return 0;
 }
