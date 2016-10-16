@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <omp.h>
+//#include <omp.h>
 #define N 10000000 // Change this to test the time taken
 using namespace std;
 
