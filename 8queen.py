@@ -31,10 +31,10 @@ def placeQueen(col):
             board[i][col] = 0
     return False
 
-if(placeQueen(1) == True):
+if placeQueen(1):
 	print "Solution found!"
 else:
-	print "Solution not possible!"
+	print "Solution not found!"
 
 for i in board:
     print i
