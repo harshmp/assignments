@@ -1,3 +1,6 @@
+# The grammar accpeted by this parser:      E  -> iEd
+#                                           Ed -> +iEd | $
+
 p = 0
 flag = True
 
