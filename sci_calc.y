@@ -2,6 +2,8 @@
 #include<stdio.h>
 #include<math.h>
 int flag = 0;
+int yyerror(const char *msg);
+int yylex();
 %}
 
 %union
