@@ -1,56 +1,67 @@
 #include <iostream>
-#include <cstdlib>
-//#include <omp.h>
-#define N 10000000 // Change this to test the time taken
+#include <omp.h>
+#define N 10
 using namespace std;
 
-//int MAX_THREADS;
-int partition(int *input_list, int low, int high){
-    int pivot = input_list[high];
-    int temp = 0;
-    int i = low;
-    for(int j = low; j < high; j++) {
-        if(input_list[j] <= pivot){
-            temp = input_list[i];
-            input_list[i] = input_list[j];
-            input_list[j] = temp;
-            i = i + 1;
-        }
-    }
-    temp = input_list[i];
-    input_list[i] = input_list[high];
-    input_list[high] = temp;
-    return i;
+void swap(int *a, int *b) {
+  int temp;
+  temp = *a;
+  *a = *b;
+  *b = temp;
 }
 
-void quicksort(int *input_list, int low, int high) {
-  int p = 0;
-  if (low < high) {
-    p = partition(input_list, low, high);
-    //#pragma omp parallel sections
+int partition(int *input_list, int start, int end) {
+  int pivot = input_list[end];
+  int i = start;
+  int temp = 0;
+
+  for (int current = start; current < end; current++) {
+    if (input_list[current] <= pivot) {
+      swap(input_list[i], input_list[current]);
+      i++;
+    }
+  }
+
+  swap(input_list[i], input_list[end]);
+  return i;
+}
+
+void quicksort(int *input_list, int start, int end) {
+  int pivot_index = 0;
+  if (start < end) {
+    pivot_index = partition(input_list, start, end);
+    #pragma omp parallel sections
     {
-      //#pragma omp section
+      #pragma omp section
       {
-        quicksort(input_list, low, p - 1);
+        quicksort(input_list, start, pivot_index - 1);
       }
-      //#pragma omp section
+      #pragma omp section
       {
-        quicksort(input_list, p + 1, high);
+        quicksort(input_list, pivot_index + 1, end);
       }
     }
   }
+
 }
+
 int main() {
-  int* num_list = new int[N];
+  int num_list[] = { 10, 2, 4, 5, 1, 7, 9, 8, 3, 6 };
   int start_index = 0, end_index = N - 1;
-  srand(time(NULL));
-  // Generate an array of N random numbers
+
+  cout << "Before quicksort:\n";
   for (int i = 0; i < N; i++) {
-    num_list[i] = rand()%N;
+    cout << num_list[i] << " ";
   }
-  //omp_set_nested(true);
-  //MAX_THREADS = omp_get_max_threads();
+  cout << endl;
+
   quicksort(num_list, start_index, end_index);
-  delete num_list;
+
+  cout << "After quicksort:\n";
+  for (int i = 0; i < N; i++) {
+    cout << num_list[i] << " ";
+  }
+  cout << endl;
+
   return 0;
 }
