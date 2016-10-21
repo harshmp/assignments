@@ -64,7 +64,7 @@ int main() {
     }
 
     nodes_in_cluster[0] = 0;
-    nodes_in_cluster[1] = 1;
+    nodes_in_cluster[1] = 0;
 
     for (i = 0; i < 7; i++) {
       if (node[i][2] == 0) {
